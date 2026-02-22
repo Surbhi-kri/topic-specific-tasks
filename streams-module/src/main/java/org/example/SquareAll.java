@@ -7,4 +7,7 @@ public class SquareAll {
     public static List<Integer> square(List<Integer> numbers) {
         return numbers.stream().map(n -> n * n).collect(Collectors.toList());
     }
+
+    public static void printSquares(List<Integer> numbers) {
+    }
 }

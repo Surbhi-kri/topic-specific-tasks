@@ -1,10 +1,11 @@
 package org.example;
 
-
-
-
 public class Box<T> {
+
     private T content;
+
+    public Box() {
+    }
 
     public Box(T content) {
         this.content = content;

@@ -41,4 +41,8 @@ public class RegexUtils {
         }
         return text.trim().replaceAll("\\s+", " ");
     }
+
+    public static void main(String[] args) {
+
+    }
 }

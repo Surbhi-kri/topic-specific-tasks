@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.internship</groupId>
+        <groupId>org.example</groupId>
         <artifactId>topic-specific-tasks</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -38,6 +38,14 @@
                 <version>3.2.5</version>
                 <configuration>
                     <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                    <mainClass>org.example.RegexUtils</mainClass>
                 </configuration>
             </plugin>
         </plugins>

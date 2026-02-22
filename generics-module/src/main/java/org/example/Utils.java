@@ -7,4 +7,7 @@ public class Utils {
         array[i] = array[j];
         array[j] = temp;
     }
+
+    public static void printMessage(String s) {
+    }
 }

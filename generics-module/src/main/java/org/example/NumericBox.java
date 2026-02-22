@@ -1,5 +1,7 @@
 package org.example;
+
 public class NumericBox<T extends Number> {
+
     private T value;
 
     public NumericBox(T value) {

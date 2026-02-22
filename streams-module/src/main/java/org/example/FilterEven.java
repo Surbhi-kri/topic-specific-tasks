@@ -7,4 +7,7 @@ public class FilterEven {
     public static List<Integer> filter(List<Integer> numbers) {
         return numbers.stream().filter(n -> n % 2 == 0).collect(Collectors.toList());
     }
+
+    public static void printEven(List<Integer> numbers) {
+    }
 }
