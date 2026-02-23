@@ -1,21 +1,16 @@
 package org.example;
 
 public class Box<T> {
-
-    private T content;
-
-    public Box() {
+    private T value;
+    public Box(T value){
+        this.value=value;
     }
 
-    public Box(T content) {
-        this.content = content;
+    public T getValue(){
+        return value;
     }
 
-    public T getContent() {
-        return content;
-    }
-
-    public void setContent(T content) {
-        this.content = content;
+    public void setValue(T value){
+        this.value=value;
     }
 }
