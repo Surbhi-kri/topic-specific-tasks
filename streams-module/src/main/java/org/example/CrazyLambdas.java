@@ -1,6 +1,7 @@
 package org.example;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.*;
 import java.util.Comparator;
@@ -97,5 +98,93 @@ public class CrazyLambdas {
 
     public static Supplier<Supplier<Supplier<String>>> trickyWellDoneSupplier() {
         return () -> () -> () -> "WELL DONE!";
+    }
+
+    public static void main(String[] args) {
+
+        // Supplier example
+        Supplier<String> hello = CrazyLambdas.helloSupplier();
+        System.out.println("Hello Supplier: " + hello.get());
+
+        // Predicate example
+        Predicate<String> emptyCheck = CrazyLambdas.isEmptyPredicate();
+        System.out.println("Is empty? " + emptyCheck.test("")); // true
+        System.out.println("Is empty? " + emptyCheck.test("abc")); // false
+
+        // BiFunction example
+        BiFunction<String, Integer, String> repeat = CrazyLambdas.stringMultiplier();
+        System.out.println("String multiply: " + repeat.apply("Hi", 3));
+
+        // Function example
+        Function<BigDecimal, String> dollarString = CrazyLambdas.toDollarStringFunction();
+        System.out.println("Dollar String: " + dollarString.apply(new BigDecimal("123.45")));
+
+        // Predicate with range
+        Predicate<String> lengthCheck = CrazyLambdas.lengthInRangePredicate(2, 5);
+        System.out.println("Length in range? " + lengthCheck.test("Hey")); // true
+
+        // IntSupplier example
+        IntSupplier randomInt = CrazyLambdas.randomIntSupplier();
+        System.out.println("Random int: " + randomInt.getAsInt());
+
+        // IntUnaryOperator example
+        IntUnaryOperator square = CrazyLambdas.intSquareOperation();
+        System.out.println("Square of 5: " + square.applyAsInt(5));
+
+        // LongBinaryOperator example
+        LongBinaryOperator sum = CrazyLambdas.longSumOperation();
+        System.out.println("Sum of 10 and 20: " + sum.applyAsLong(10, 20));
+
+        // ToIntFunction example
+        ToIntFunction<String> toInt = CrazyLambdas.stringToIntConverter();
+        System.out.println("String to int: " + toInt.applyAsInt("123"));
+
+        // Supplier of function example
+        Supplier<IntUnaryOperator> multiplyBy3 = CrazyLambdas.nMultiplyFunctionSupplier(3);
+        System.out.println("3*5 = " + multiplyBy3.get().applyAsInt(5));
+
+        // UnaryOperator example (compose function)
+        UnaryOperator<Function<String, String>> trimFunc = CrazyLambdas.composeWithTrimFunction();
+        Function<String, String> f = s -> s.toUpperCase();
+        System.out.println("Trim & upper: " + trimFunc.apply(f).apply("  hello  "));
+
+        // Running thread supplier
+        Runnable task = () -> System.out.println("Thread running!");
+        Supplier<Thread> threadSupplier = CrazyLambdas.runningThreadSupplier(task);
+        threadSupplier.get();
+
+        // Consumer example (start thread)
+        Consumer<Runnable> startThread = CrazyLambdas.newThreadRunnableConsumer();
+        startThread.accept(() -> System.out.println("Thread via consumer!"));
+
+        // Function to supplier example
+        Function<Runnable, Supplier<Thread>> rToThread = CrazyLambdas.runnableToThreadSupplierFunction();
+        rToThread.apply(() -> System.out.println("Runnable to thread!")).get();
+
+        // Conditional function example
+        BiFunction<IntUnaryOperator, IntPredicate, IntUnaryOperator> conditional =
+                CrazyLambdas.functionToConditionalFunction();
+        IntUnaryOperator doubleIfEven = conditional.apply(x -> x * 2, x -> x % 2 == 0);
+        System.out.println("Double 4? " + doubleIfEven.applyAsInt(4)); // 8
+        System.out.println("Double 5? " + doubleIfEven.applyAsInt(5)); // 5
+
+        // Function loader example
+        Map<String, IntUnaryOperator> map = new HashMap<>();
+        map.put("square", x -> x * x);
+        BiFunction<Map<String, IntUnaryOperator>, String, IntUnaryOperator> loader =
+                CrazyLambdas.functionLoader();
+        System.out.println("Loaded square: " + loader.apply(map, "square").applyAsInt(5));
+
+        // Comparator example
+        Comparator<String> comp = CrazyLambdas.comparing(String::length);
+        System.out.println("Compare 'hi' vs 'hello': " + comp.compare("hi", "hello")); // -1
+
+        // ThenComparing example
+        Comparator<String> thenComp = CrazyLambdas.thenComparing(comp, String::toUpperCase);
+        System.out.println("Then compare 'hi' vs 'HI': " + thenComp.compare("hi", "HI")); // 0
+
+        // Nested Supplier example
+        Supplier<Supplier<Supplier<String>>> wellDone = CrazyLambdas.trickyWellDoneSupplier();
+        System.out.println("Nested Supplier: " + wellDone.get().get().get());
     }
 }
